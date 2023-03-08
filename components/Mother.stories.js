@@ -35,10 +35,18 @@ export default {
 const Template = props => <Mother {...props} />;
 
 export const Default = Template.bind({});
+Default.parameters = {
+  counter: {
+    count: 200,
+    incrementCount: () => setState(state + 1),
+  },
+};
 
 export const CountIs22 = Template.bind({});
 CountIs22.parameters = {
   counter: {
     count: 1999,
+    incrementCount: () => console.log('INCREMENT'),
+    decrementCount: () => console.log('DECREMENT'),
   },
 };

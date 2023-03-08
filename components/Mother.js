@@ -6,8 +6,14 @@ const Mother = () => {
   const { incrementCount, decrementCount, count } = useContext(CounterContext);
 
   return (
-    <div style={{ display: 'flex', flexDirection: 'column' }}>
+    <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
       <h1>{count}</h1>
+      <button style={{ width: '150px' }} onClick={incrementCount}>
+        Increment
+      </button>
+      <button style={{ width: '150px' }} onClick={decrementCount}>
+        Decrement
+      </button>
     </div>
   );
 };
