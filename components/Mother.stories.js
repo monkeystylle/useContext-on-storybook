@@ -1,25 +1,25 @@
+/* eslint-disable import/no-anonymous-default-export */
 import Mother from './Mother';
+import { withReactContext } from 'storybook-react-context';
 import { useState } from 'react';
 import { CounterContext } from '../lib/context/counter-context';
 import { useParameter } from '@storybook/addons';
 // import CounterDecorator from '../.storybook/decorators/CounterDecorator';
 
-function CounterDecorator(Story, context) {
-  const initialState = useParameter('counter', {
-    incrementCount: () => {
-      setState(count + 1);
-    },
-    decrementCount: () => {
-      setState(count - 1);
-    },
-    count: 0,
-  });
-
-  const [state, setState] = useState({ ...initialState });
+function CounterDecorator(Story) {
+  const [count, setCount] = useState(0);
+  const incrementCount = () => setCount(count + 1);
+  const decrementCount = () => setCount(count - 1);
 
   return (
     <div>
-      <CounterContext.Provider value={state}>
+      <CounterContext.Provider
+        value={{
+          count,
+          incrementCount,
+          decrementCount,
+        }}
+      >
         <Story />
       </CounterContext.Provider>
     </div>
@@ -27,7 +27,7 @@ function CounterDecorator(Story, context) {
 }
 
 export default {
-  title: 'components/Mother',
+  title: 'Mother',
   component: Mother,
   decorators: [CounterDecorator],
 };
@@ -35,18 +35,5 @@ export default {
 const Template = props => <Mother {...props} />;
 
 export const Default = Template.bind({});
-Default.parameters = {
-  counter: {
-    count: 200,
-    incrementCount: () => setState(state + 1),
-  },
-};
 
 export const CountIs22 = Template.bind({});
-CountIs22.parameters = {
-  counter: {
-    count: 1999,
-    incrementCount: () => console.log('INCREMENT'),
-    decrementCount: () => console.log('DECREMENT'),
-  },
-};

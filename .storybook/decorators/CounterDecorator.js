@@ -4,12 +4,8 @@ import { useState } from 'react';
 
 export default function CounterDecorator(Story, context) {
   const initialState = useParameter('counter', {
-    incrementCount: () => {
-      setState(count + 1);
-    },
-    decrementCount: () => {
-      setState(count - 1);
-    },
+    incrementCount: () => {},
+    decrementCount: () => {},
     count: 0,
   });
 
